@@ -27,10 +27,10 @@ function originIsAllowed(origin) {
 }
 
 //guardamos los clientes en un arreglo. Esta variable es global
-var clientes = [ ];
+var clientes = [];
 var cantUsers = 0;
 
-wsServer.on('request', function(request) {
+wsServer.on("request", function(request) {
 	if (!originIsAllowed(request.origin)) {	// Make sure we only accept requests from an allowed origin
 	request.reject();	console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
 	return;
@@ -49,7 +49,7 @@ wsServer.on('request', function(request) {
        	clientes[i].sendUTF("El usuario "+userName+" entró a al chat.");
     }
 
-	connection.on('message', function(message) {
+	connection.on("message", function(message) {
 		if (message.utf8Data.substr(0,3)=="msg"){
 			//enviar el msj a todos los clientes
 			var msg = message.utf8Data.substring(3);
@@ -66,7 +66,7 @@ wsServer.on('request', function(request) {
     	}
 	});
 
-	connection.on('close', function(reasonCode, description) {
+	connection.on("close", function(reasonCode, description) {
 		//eliminar al cliente de la lista de clientes
 		var nro;
 		for (var i=0; i < clientes.length; i++) {

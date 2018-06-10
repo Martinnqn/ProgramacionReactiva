@@ -20,7 +20,6 @@ window.addEventListener("load", function(event) {
     close.disabled = true;
     sendMessage.disabled = true;
     sendUserName.disabled = true;
-
   // Create a new connection when the Connect button is clicked              
   open.addEventListener("click", function(event) {
     open.disabled = true;
@@ -31,6 +30,23 @@ window.addEventListener("load", function(event) {
       status.textContent = "Connected";
       sendUserName.disabled = false;
     });
+
+     // Display messages received from the server
+    socket.addEventListener("message", function(event) {
+      document.getElementById("chat").value = document.getElementById("chat").value +"\n"+ event.data;
+    });
+
+    // Display any errors that occur
+    socket.addEventListener("error", function(event) {
+      message.textContent = "Error: " + event;
+    });
+
+    socket.addEventListener("close", function(event) {
+      open.disabled = false;
+      status.textContent = "Not Connected";
+    });
+    
+  });
 
     // Close the connection when the Disconnect button is clicked          
     close.addEventListener("click", function(event) {
@@ -46,6 +62,7 @@ window.addEventListener("load", function(event) {
     sendMessage.addEventListener("click", function(event) {
       var msg = message.value;
       socket.send("msg"+msg);
+      message.value="";
     });
 
     //sendUserName text to the server when the sendUserName button is clicked          
@@ -56,21 +73,7 @@ window.addEventListener("load", function(event) {
       }
     });
 
-    // Display messages received from the server
-    socket.addEventListener("message", function(event) {
-      document.getElementById("chat").value = document.getElementById("chat").value +"\n"+ event.data;
-    });
-
-    // Display any errors that occur
-    socket.addEventListener("error", function(event) {
-      message.textContent = "Error: " + event;
-    });
-
-    socket.addEventListener("close", function(event) {
-      open.disabled = false;
-      status.textContent = "Not Connected";
-    });
-  });
+   
 }); 
 
 </script> 
@@ -84,7 +87,7 @@ window.addEventListener("load", function(event) {
   <input type="text" name="userName" id="userName" />  <input id="sendUserName" type="button" value="Cambiar nombre" /> <br /> 
   <textarea rows="10" cols="50" id="chat" readonly style="resize:none"> </textarea> <br />
   <textarea rows="2" cols="50" id="message" autofocus="" style="resize:none"> </textarea> <br />
-  <input id="sendMessage" type="reset" value="Enviar mensaje" /> <br />   
+  <input id="sendMessage" type="button" value="Enviar mensaje" /> <br />   
 
 
   <br />
