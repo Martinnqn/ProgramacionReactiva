@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Chat</title>
+	<link rel="icon" href="favicon.png" type="image/png" sizes="16x16">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="cliente.js"></script>
+	<link rel="stylesheet" type="text/css" href="estilo.css">
+</head>
+
+<body>
+	<div class="body">
+		<header>
+			<h1 class="title">Chat</h1>
+		</header>
+		<section>
+			<span class="text"> Estado </span> <span id="status"></span>
+			<br /> <span class="text"> Servidor </span>
+			<input type="text" id="url" class="input_text input_url" />
+			<br />
+			<input type="text" id="userName" class="input_text" placeholder="Nombre..." />
+			<input type="button" id="sendUserName" class="button" value="Cambiar nombre" />
+			<br />
+			<input type="button" id="open" class="button button_green" value="Conectarse" />
+			<input type="button" id="close" class="button button_red" value="Desconectarse" />
+			<br />
+			<textarea rows="10" cols="50" id="chat" readonly>Conversación...</textarea>
+			<br />
+			<textarea rows="2" cols="50" id="message" class="message_box" autofocus="" placeholder="Escribe un mensaje..."></textarea>
+			<input type="button" id="sendMessage" class="button button_send" value="Enviar" />
+		</section>
+	</div>
+</body>
+
+</html>

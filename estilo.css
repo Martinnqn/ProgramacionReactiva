@@ -1,0 +1,153 @@
+body {
+	/*background-color: #233237;*/
+	background: linear-gradient(to right, #233237 50%, #18121E 50%);
+	font-family: monospace;
+	margin: 0px;
+	padding: 0px;
+	font-size: 16px;
+}
+
+section {
+	background-color: white;
+	margin: auto;
+	display: table;
+	text-align: center;
+	padding: 10px;
+}
+
+header {
+	background-color: #984b43;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	display: table;
+	margin: auto;
+	text-align: center;
+	font-size: 15px;
+	color: white;
+	font-family: monospace;
+	text-shadow: -20px 0 5px black, 0 20px 5px black, 20px 0 5px black, 0 -20px 5px black, 3px 3px 0px black, -3px -3px 0px black;
+}
+
+footer {
+	padding: 0px;
+	margin: 0px;
+}
+
+content {
+	padding: 0px;
+	margin: 0px;
+}
+
+textarea {
+	resize: none;
+	width: 360px;
+	font-size: 16px;
+	font-family: monospace;
+	padding: 15px;
+	margin: 4px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+textarea,
+input {
+	outline: none;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+
+#status {
+	color: gray;
+}
+
+.title {
+	width: 360px;
+	padding: 1px 14px 1px 14px;
+}
+
+.text {
+	font-weight: bold;
+	display: inline-block;
+	padding: 15px;
+	margin: 4px;
+}
+
+.input_text {
+	width: 175px;
+	font-size: 16px;
+	font-family: monospace;
+	padding: 15px;
+	margin: 4px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+.input_url {
+	width: 230px;
+	display: inline-block;
+	float: right;
+}
+
+.button {
+	width: 175px;
+	background-color: #555555;
+	border: none;
+	color: white;
+	padding: 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	font-family: monospace;
+	margin: 4px;
+	cursor: pointer;
+	opacity: 0.9;
+}
+
+.button:disabled {
+	opacity: 0.6;
+	cursor: default;
+}
+
+.button:disabled:hover {
+	opacity: 0.6;
+}
+
+.button:hover {
+	opacity: 1;
+}
+
+.button_green {
+	background-color: #4CAF50;
+}
+
+.button_red {
+	background-color: #f44336;
+}
+
+.button_send {
+	width: 80px;
+	height: 60px;
+}
+
+.message_box {
+	width: 272px;
+	height: 60px;
+	display: block;
+	float: left;
+}

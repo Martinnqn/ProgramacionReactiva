@@ -31,9 +31,10 @@ var clientes = [];
 var cantUsers = 0;
 
 wsServer.on("request", function(request) {
-	if (!originIsAllowed(request.origin)) {	// Make sure we only accept requests from an allowed origin
-	request.reject();	console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
-	return;
+	if (!originIsAllowed(request.origin)) { // Make sure we only accept requests from an allowed origin
+		request.reject();
+		console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
+		return;
 	}
 
 	var connection = request.accept('echo-protocol', request.origin);
@@ -41,41 +42,47 @@ wsServer.on("request", function(request) {
 
 	//si la conexion es aceptada agregamos el cliente a la lista de clientes
 	clientes.push(connection);
-	var userName = "Usuario"+cantUsers;
+	var url = require('url').parse(request.httpRequest.url);
+	var param = url.pathname.substring(1);
+	var userName = "Usuario" + cantUsers;
+	if (param != "") {
+		userName = param;
+	}
+	
 	connection.id = cantUsers; //agregar un id unico al cliente para identificarlo univocamente.
 	cantUsers++;
 	//avisar en el chat la conexion del usuario
-	for (var i=0; i < clientes.length; i++) {
-       	clientes[i].sendUTF("El usuario "+userName+" entró a al chat.");
-    }
+	for (var i = 0; i < clientes.length; i++) {
+		clientes[i].sendUTF("El usuario " + userName + " entró a al chat.");
+	}
 
 	connection.on("message", function(message) {
-		if (message.utf8Data.substr(0,3)=="msg"){
+		if (message.utf8Data.substr(0, 3) == "msg") {
 			//enviar el msj a todos los clientes
 			var msg = message.utf8Data.substring(3);
-			for (var i=0; i < clientes.length; i++) {
-	        	clientes[i].sendUTF(userName+": "+msg);
-	        }
-    	}else if (message.utf8Data.substr(0,4)=="name"){
-    		var name = message.utf8Data.substring(4);
-    		//avisar del cambio de nombre al resto de los usuarios
-    		for (var i=0; i < clientes.length; i++) {
-        	clientes[i].sendUTF(userName+" cambió su nombre a: "+name);
-        	}
-        	userName = name;
-    	}
+			for (var i = 0; i < clientes.length; i++) {
+				clientes[i].sendUTF(userName + ": " + msg);
+			}
+		} else if (message.utf8Data.substr(0, 4) == "name") {
+			var name = message.utf8Data.substring(4);
+			//avisar del cambio de nombre al resto de los usuarios
+			for (var i = 0; i < clientes.length; i++) {
+				clientes[i].sendUTF(userName + " cambió su nombre a: " + name);
+			}
+			userName = name;
+		}
 	});
 
 	connection.on("close", function(reasonCode, description) {
 		//eliminar al cliente de la lista de clientes
 		var nro;
-		for (var i=0; i < clientes.length; i++) {
-			if (connection.id==clientes[i].id){
+		for (var i = 0; i < clientes.length; i++) {
+			if (connection.id == clientes[i].id) {
 				nro = i;
 			}
-       		clientes[i].sendUTF("El usuario "+userName+" se desconectó del chat.");
-    	}
+			clientes[i].sendUTF("El usuario " + userName + " se desconectó del chat.");
+		}
 		clientes.splice(nro, 1);
-		console.log((new Date()) + ' Peer ' + connection.remoteAddress +' '+connection.id+' disconnected.');
+		console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' ' + connection.id + ' disconnected.');
 	});
 });
