@@ -78,11 +78,11 @@ wsServer.on("request", function(request) {
 			for (var i = 0; i < clientes.length; i++) {
 				clientes[i].sendUTF(userName + ": " + msg);
 			}
-			//verifica que el mensaje provenga de un cambio de nombre
+		//verifica que el mensaje provenga de un cambio de nombre
 		} else if (message.utf8Data.substr(0, 4) == "name") {
 			//pasea para obtener el mensaje
 			var name = message.utf8Data.substring(4);
-			//evnia el mensaje de cambio de nombre a todos los clientes
+			//envia el mensaje de cambio de nombre a todos los clientes
 			for (var i = 0; i < clientes.length; i++) {
 				clientes[i].sendUTF(userName + " cambió su nombre a: " + name);
 			}
