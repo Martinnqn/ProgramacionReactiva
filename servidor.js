@@ -29,6 +29,7 @@ function originIsAllowed(origin) {
 var clientes = [];
 var cantUsers = 0;
 
+//evento al recibir una conexion entrante en el servidor
 wsServer.on("request", function(request) {
 	//verifica si la conexion proviene de un cliente restringido
 	if (!originIsAllowed(request.origin)) {
