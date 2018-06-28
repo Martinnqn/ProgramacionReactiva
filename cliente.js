@@ -9,7 +9,9 @@ window.addEventListener("load", function(event) {
 	var message = document.getElementById("message");
 	var socket;
 	status.textContent = "Desconectado";
-	url.value = "ws://localhost:8080";
+	var page = document.createElement('a');
+	page.href = window.location.href;
+	url.value = "ws://" + page.hostname + ":8080";
 	close.disabled = true;
 	sendMessage.disabled = true;
 	sendUserName.disabled = true;
